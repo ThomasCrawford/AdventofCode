@@ -57,6 +57,4 @@ with open("input.txt") as file:
 			print(i)
 			exit()
 
-
-
 #returns 24261545
