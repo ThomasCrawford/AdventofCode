@@ -5,14 +5,6 @@ def transpose_strings(grid):
 	length = len(grid[0])
 	return ["".join(word[i] for word in grid) for i in range(length)]
 
-# def mirror_at_i(grid,i):
-# 	n = len(grid)
-# 	num_to_check = min(i,n-i)
-# 	for x in range(num_to_check+1):
-# 		print (x, grid[x], 2*num_to_check - x-1, grid[2*num_to_check - x-1], grid[x] != grid[2*num_to_check - x-1])
-# 		if grid[x] != grid[2*num_to_check - x-1]:
-# 			return False
-# 	return True
 
 def mirror_after_i(grid, i):
 	n = len(grid)
