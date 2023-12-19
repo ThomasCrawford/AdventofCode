@@ -32,12 +32,14 @@ while Q:
     # Add neighboring nodes to Q
     for which_way in [-1, 1]:
         new_c = c
-        for i in range(1, 4):
+        for i in range(1,4):
+            new_p = (p[0]+i*d*which_way, p[1]+i*(not d)*which_way)
+            if not (0<=new_p[0]<height and 0<=new_p[1]<width): 
+                break
+            new_c += data[new_p]
+        for i in range(4, 11):
             new_p = (p[0] + i * d * which_way, p[1] + i * (not d) * which_way)
             if not (0 <= new_p[0] < height and 0 <= new_p[1] < width):
                 break
             new_c += data[new_p]
             heapq.heappush(Q, (new_c, new_p, not d))
-
-# Output the result
-print("No path found" if p != (height - 1, width - 1) else "")

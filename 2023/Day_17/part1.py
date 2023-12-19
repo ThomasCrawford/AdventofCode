@@ -1,7 +1,5 @@
-
-import heapq as hq
 import cmath
-
+import heapq
 
 
 #processing
@@ -23,15 +21,12 @@ for i in range(width):
 #		direction entered node (T = east-west, F = north-south)
 
 Q = [[0,(0,0),True],[0,(0,0),False]]
-# Q = hq.heapify([2,3,1,0])
+heapq.heapify(Q) 
 visited = []
 
 
 while Q:
-# for _ in range(1):
-	Q.sort(key = lambda x: x[0])
-	[c,p,d] = Q[0] #is there a "reverse pop?"
-	Q = Q[1:]
+	c, p, d = heapq.heappop(Q)
 	if p == (height-1,width-1):
 		print(c)
 		exit()
@@ -42,7 +37,7 @@ while Q:
 	for which_way in [-1,1]:
 		new_c = c
 		for i in range(1,4):
-			new_p = (p[0]+i*d*which_way, p[1]+i*(not d)*which_way)
+			new_p = (p[0] + i * d * which_way, p[1]+i * (not d) * which_way)
 			if not (0<=new_p[0]<height and 0<=new_p[1]<width): 
 				break
 			new_c += data[new_p]
@@ -55,11 +50,3 @@ while Q:
 				if not found:
 					Q.append([new_c, new_p, not d])
 
-# print(visited)
-# print(len(visited))
-# print((new_p,not d))
-# print((new_p,not d) not in visited)
-
-
-# print("hi")
-# print(": )")
