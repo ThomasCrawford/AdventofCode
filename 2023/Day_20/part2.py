@@ -112,6 +112,18 @@ for name, target in connections_data:
 	module_registry[name].add_connection(module_registry[target])
 
 
+#find the module that funnels to "rx"
+for m in module_registry:
+	# print ([mod.name for mod in module_registry[m].connections])
+	if "" in [mod.name for mod in module_registry[m].connections]:
+		penultimate = module_registry[m].name
+
+#find the 4 modules that funnel to that module
+Module.looking_for = [key for key,_ in module_registry[penultimate].input_memory.items()]
+
+print(Module.looking_for)
+
+
 # Press start
 num_presses = 1
 while Module.looking_for:
