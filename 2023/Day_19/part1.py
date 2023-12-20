@@ -10,8 +10,10 @@ def process_rule_txt(string):
 def step(loc,part):
 	x,m,a,s = part
 	for con,result in workflow[loc][:-1]:
-		if eval(con): return result
+		if eval(con): 
+			return result
 	return workflow[loc][-1][0]
+
 def check(part):
 	loc = "in"
 	while loc != "A" and loc != "R":
