@@ -1,5 +1,5 @@
 from queue import Queue
-from numpy import prod
+from numpy import lcm
 
 num_iterations =1000
 filename = "input.txt"
@@ -132,7 +132,7 @@ while Module.looking_for:
 
 	num_presses += 1
 print(Module.found)
-print(prod(Module.found))
+print(lcm.reduce(Module.found))
 
 
 
