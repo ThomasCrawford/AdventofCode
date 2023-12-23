@@ -12,8 +12,8 @@ half_width = int((width-1)/2)
 
 
 def plot(filename, active):
-	x_min = -25
-	x_max = 35
+	x_min = -55
+	x_max = 50
 	y_min = x_min
 	y_max = x_max
 	f = open(filename,"w")
@@ -21,10 +21,10 @@ def plot(filename, active):
 		for x in range(x_min, y_max):
 			if x+y*1j in active:
 				f.write("O")
-			elif x%width in [0,width-1]:
-				f.write("|")
-			elif y%width in [0, width -1]:
-				f.write("-")
+			# elif x%width in [0,width-1]:
+			# 	f.write("|")
+			# elif y%width in [0, width -1]:
+			# 	f.write("-")
 			else:
 				f.write(grid[x%width + y%width*1j])
 		f.write("\n")
@@ -47,8 +47,8 @@ def count_from(first, count):
 		active = f(active)
 	return(len(active))
 
-for _ in range(width*2+half_width):
+for _ in range(width*4+half_width):
 	active = f(active)
 print(len(active))
 
-plot("7by3.txt",active)
+plot("snake.txt",active)
