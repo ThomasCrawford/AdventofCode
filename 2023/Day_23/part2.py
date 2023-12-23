@@ -1,5 +1,4 @@
 import networkx as nx
-import matplotlib
 import matplotlib.pyplot as plt
 import time
 
@@ -35,11 +34,6 @@ def traverse(p,d):
 		# print(f'Leaving {p} for {p+d}, then can move either {which_adjacent(p+d)}')
 		if len(which_adjacent(p+d)) != 2:
 			return False
-		# if (data[p+d] == "v" and d != 1j) or \
-		# 		(data[p+d] == ">" and d != 1) or \
-		# 		(data[p+d] == "^" and d != -1j) or \
-		# 		(data[p+d] == "<" and d != -1):
-		# 	return False
 		steps +=1
 		new_d = which_adjacent(p+d)
 		new_d.remove(-1*d)
@@ -90,21 +84,29 @@ penultimate = node_registry[penultimate_index]
 penultimate.connects_to = [conn for conn in penultimate.connects_to if conn[0]==width-2+ (width-1)*1j]
 
 
+#Reformatting graph, now just adj_list
+adj_list = {}
+translate = {}
+for i, node_index in enumerate(node_registry.keys()):
+	translate[node_index] = i 
 
-#brute force DFS
-def f(p, visited, dis_so_far):
-	# if all([new_node in visited for new_node in node_registry[p].connects_to]):
-	# 	return 0
+for node_index, i in translate.items():
+	node_info = node_registry[node_index].connects_to
+	adj_list[i] = [ [translate[adj_info[0]],adj_info[1]] for adj_info in node_info]
+
+
+# Main Loop
+def f(index, visited):
 	max_route_from_here = 0
-	for next_node in node_registry[p].connects_to:
+	for next_node in adj_list[index]:
 		if next_node[0] not in visited:
+			new_visited = visited.copy()  # Create a copy of visited set for the recursive call
+			new_visited.add(index)
 			max_route_from_here = max(max_route_from_here,\
-				f(next_node[0], visited + [p], dis_so_far + next_node[1]) + next_node[1] )
+				f(next_node[0], new_visited) + next_node[1] )
 	return max_route_from_here
 
-print(f(1,[],0))
-
-
+print(f(translate[1],set()))
 
 
 end_time = time.time()  # End timing
@@ -112,21 +114,14 @@ total_time = end_time - start_time
 print(f"Program executed in {total_time} seconds.")
 
 
-
-# # listing connections
-# for node in node_registry.values():
-# 	print(f'Node {node.p} has connections: {node.connects_to}')
-
-
-
 # # Graphing the graph
 
 # G = nx.Graph()
-# for key in node_registry.keys():
+# for key in adj_list.keys():
 # 	G.add_node(key)
 
-# for key, node in node_registry.items():
-# 	for adj in node.connects_to:
+# for key, adjacency in adj_list.items():
+# 	for adj in adjacency:
 # 		G.add_edge(key, adj[0], weight = 600 - adj[1], color = adj[1])
 
 # pos = nx.spring_layout(G)  
@@ -136,10 +131,5 @@ print(f"Program executed in {total_time} seconds.")
 
 # plt.show()
 
-# # matplotlib.pyplot.savefig("out.png")
-
-
-
-
-
+# # plt.savefig("out.png")
 
