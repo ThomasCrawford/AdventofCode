@@ -32,7 +32,6 @@ for word in words:
 
 
 # scoring
-
 answer = 0
 for i in range(256):
 	for j in range(len(hashmap[i])):
