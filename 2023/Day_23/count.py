@@ -1,3 +1,6 @@
+## QUESTION: how many paths did I iterate over? how many end at the right endpoint?
+
+
 import networkx as nx
 import matplotlib.pyplot as plt
 import time
@@ -77,11 +80,11 @@ for node in node_registry.values():
 	node.update_connections()
 	# print(node.p, node.connects_to)
 
-# slight pruning at end (if you get to pennultimate, you should only move to end)
-end_node = node_registry[width-2+ (width-1)*1j]
-penultimate_index = end_node.connects_to[0][0]
-penultimate = node_registry[penultimate_index]
-penultimate.connects_to = [conn for conn in penultimate.connects_to if conn[0]==width-2+ (width-1)*1j]
+# # slight pruning at end (if you get to pennultimate, you should only move to end)
+# end_node = node_registry[width-2+ (width-1)*1j]
+# penultimate_index = end_node.connects_to[0][0]
+# penultimate = node_registry[penultimate_index]
+# penultimate.connects_to = [conn for conn in penultimate.connects_to if conn[0]==width-2+ (width-1)*1j]
 
 
 
@@ -95,42 +98,50 @@ for node_index, i in translate.items():
 	node_info = node_registry[node_index].connects_to
 	adj_list[i] = [ [translate[adj_info[0]],adj_info[1]] for adj_info in node_info]
 
+endpoint = translate[width-2+ (width-1)*1j]
 
-# Main Loop
+
+### NEW QUESTION HERE
+
+
+# # paths that end at endpt
+# def f(index, visited):
+# 	if index == endpoint: 
+# 		return 1
+# 	count = 0
+# 	for next_node in adj_list[index]:
+# 		if next_node[0] not in visited:
+# 			new_visited = visited.copy()  # Create a copy of visited set for the recursive call
+# 			new_visited.add(index)
+# 			# max_route_from_here = max(max_route_from_here,\
+# 			# 	f(next_node[0], new_visited) + next_node[1] )
+# 			count += f(next_node[0], new_visited)
+# 	return count
+
+# print(f(translate[1],set()))
+
+
+
+# all paths
 def f(index, visited):
-	max_route_from_here = 0
+	adjacencies = [adj[0] for adj in adj_list[index]]
+	if set(adjacencies).issubset(visited): return 1
+	count = 0
 	for next_node in adj_list[index]:
 		if next_node[0] not in visited:
 			new_visited = visited.copy()  # Create a copy of visited set for the recursive call
 			new_visited.add(index)
-			max_route_from_here = max(max_route_from_here,\
-				f(next_node[0], new_visited) + next_node[1] )
-	return max_route_from_here
+			# max_route_from_here = max(max_route_from_here,\
+			# 	f(next_node[0], new_visited) + next_node[1] )
+			count += f(next_node[0], new_visited)
+	return count
 
 print(f(translate[1],set()))
+
+
+
 
 
 end_time = time.time()  # End timing
 total_time = end_time - start_time
 print(f"Program executed in {total_time} seconds.")
-
-
-# # Graphing the graph
-
-# G = nx.Graph()
-# for key in adj_list.keys():
-# 	G.add_node(key)
-
-# for key, adjacency in adj_list.items():
-# 	for adj in adjacency:
-# 		G.add_edge(key, adj[0], weight = 600 - adj[1], color = adj[1])
-
-# pos = nx.spring_layout(G)  
-# nx.draw(G, pos, with_labels = True)
-# edge_labels = nx.get_edge_attributes(G, 'color')
-# nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
-
-# plt.show()
-
-# # plt.savefig("out.png")
-
