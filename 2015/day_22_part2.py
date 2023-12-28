@@ -88,7 +88,7 @@ def take_turn(game_state,spell_name):
     # boss attacks
     boss_dmg = BOSS_DAMAGE
     if new_game_state["shield"]:
-        boss_dmg = max(boss_dmg - 7,1)
+        boss_dmg = max(boss_dmg - 7,1) + 1 #hard mode equivalent to boss doing +1 damage
     new_game_state["hp"] -= boss_dmg
     if new_game_state["hp"] <= 0:
         return "Lose"
@@ -120,6 +120,7 @@ while not found:
     for spell in available_spells(current_state):
         manna_cost = spells[spell]['cost']
         next_state = take_turn(current_state, spell)
+        print(current_state, counter)
         if next_state == "Lose":
             pass
         elif next_state == "Win":
@@ -128,5 +129,4 @@ while not found:
         else:
             heapq.heappush(queue,(manna_spent + manna_cost, counter, next_state))
     counter += 1
-
 
