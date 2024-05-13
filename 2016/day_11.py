@@ -117,15 +117,3 @@ for i in range(1,1000):
     if end_state in visited_states:
         print(f'We reached the top in {i} moves!')
         quit()
-
-
-# state1 = [[0],[0,0],[0,0],[0,0],[0,1],[0,1]]
-# state2 = [[0,0],[0,0],[0,0],[0,1],[0,1],[0]]
-# state3 = [[0,0],[0,0],[0,1],[0,1],[0,0],[0]]
-# state4 = [[0,0],[0,0],[0,1],[0,1],[0,1],[0]]
-# x = [state1, state2,state3,state4]
-# y = remove_duplicates(x)
-
-# for i in y:
-#     print(i)
-
