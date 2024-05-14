@@ -42,4 +42,4 @@ while x < len(data):
 
 print(a)
 
-# print("--- %s seconds ---" % (time.time() - start_time))
+print("--- %s seconds ---" % (time.time() - start_time))
