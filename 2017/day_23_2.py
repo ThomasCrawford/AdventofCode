@@ -1,6 +1,17 @@
 import logging
+import math
+
 
 logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+
+
+def is_prime(n):
+    if n <= 1:
+        return False
+    for i in range(2, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            return False
+    return True
 
 
 class Generator:
@@ -30,6 +41,15 @@ class Generator:
         else:
             return int(letter)
 
+
+    def shortcut(self):
+        if is_prime(self.registers['b']):
+            self.registers['f'] = 1
+        else:
+            self.registers['f'] = 0
+        self.registers['position'] = 24
+
+
     def step(self,line):
         match line[0]:
             case 'set':
@@ -54,7 +74,9 @@ class Generator:
 
     def run(self):
         while not self.terminated:
-            logging.debug(f"{self.registers}")
+            print(self.registers)
+            if self.registers['position'] == 8:
+                self.shortcut()
             l = Generator.data[self.registers['position']]
             self.registers = self.step(l)
 
@@ -64,6 +86,8 @@ gen1 = Generator()
 gen1.run()
 print(gen1.mul_count)
 
-gen2 = Generator(1)
-gen2.run()
-print(gen2.registers['h'])
+# gen2 = Generator(1)
+# gen2.run()
+# print(gen2.registers['h'])
+
+
