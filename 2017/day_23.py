@@ -67,3 +67,5 @@ print(gen1.mul_count)
 gen2 = Generator(1)
 gen2.run()
 print(gen2.registers['h'])
+
+
