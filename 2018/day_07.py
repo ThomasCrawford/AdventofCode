@@ -1,7 +1,3 @@
-#1001 too high
-#260 too low
-
-
 import re
 from collections import defaultdict
 
