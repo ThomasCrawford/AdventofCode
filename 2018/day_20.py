@@ -14,7 +14,6 @@ def split(word):
             result.append(word[start:i])
             start = i+1
     result.append(word[start:])
-
     return result
 
 def find_open_paren(word):
@@ -26,7 +25,6 @@ def find_open_paren(word):
             pcount -= 1
             if pcount == 0:
                 return i
-
 
 def combine(word, points):
     directions = {"N": -1j, "S": 1j, "E": 1, "W": -1}
@@ -44,43 +42,26 @@ def combine(word, points):
     return points
 
 
+# def display(points):
+#     xmin = int(min([z.real for z in points]))
+#     xmax = int(max([z.real for z in points]))
+#     ymin = int(min([z.imag for z in points]))
+#     ymax = int(max([z.imag for z in points]))
+#     for y in range(ymin-1, ymax+2):
+#         out = ""
+#         for x in range(xmin-1, xmax +2):
+#             if x == 0 and y == 0:
+#                 out += "X"
+#             elif x%2 == 0 and y%2 == 0:
+#                 out += "."
+#             elif x%2 == 0 and x+y*1j in points:
+#                 out += "-"
+#             elif x+y*1j in points:
+#                 out += "|"
+#             else:
+#                 out += "#"
+#         print(out)
 
-def display(points):
-    xmin = int(min([z.real for z in points]))
-    xmax = int(max([z.real for z in points]))
-    ymin = int(min([z.imag for z in points]))
-    ymax = int(max([z.imag for z in points]))
-    for y in range(ymin-1, ymax+2):
-        out = ""
-        for x in range(xmin-1, xmax +2):
-            if x == 0 and y == 0:
-                out += "X"
-            elif x%2 == 0 and y%2 == 0:
-                out += "."
-            elif x%2 == 0 and x+y*1j in points:
-                out += "-"
-            elif x+y*1j in points:
-                out += "|"
-            else:
-                out += "#"
-        print(out)
-
-
-# def furthest(points):
-#     directions = [1,-1,1j,-1j]
-#     seen = set()
-#     q = [0]
-#     gen = 0
-#     while q:
-#         newq = set()
-#         for p in q:
-#             for d in directions:
-#                 if p+d in points and p+2*d not in seen:
-#                     newq.add(p+2*d)
-#         seen.update(q)
-#         q = newq
-#         gen +=1
-#     return gen -1
 
 def path_length(points):
     directions = [1,-1,1j,-1j]
@@ -99,12 +80,6 @@ def path_length(points):
         gen +=1
     return seen
 
-# print(combine("E(N|S)EEE", []))
-
-# print(split("NS|S(E|W)"))
-
-# def doors(word, found):
-
 
 
 with open("input_20.txt") as file:
@@ -119,14 +94,4 @@ ans2 = len([room for room in paths if paths[room]>=1000])
 # display(points)
 print(ans1)
 print(ans2)
-
-
-
-
-
-# print(word)
-
-
-
-
 
