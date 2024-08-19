@@ -1,7 +1,5 @@
 import re
 
-
-
 class Moon:
     def __init__(self, x, y, z):
         self.position = [int(x),int(y),int(z)]

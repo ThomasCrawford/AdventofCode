@@ -1,3 +1,4 @@
+
 from typing import List
 
 class Intcode:
@@ -10,6 +11,7 @@ class Intcode:
         self.idnum = idnum
         self.offset = 0
         self.output = []
+        self.waiting = False
 
     def step(self):
         code = self.data[self.cursor]
@@ -55,6 +57,8 @@ class Intcode:
                 address = get_address(m1, 1)
                 self.data[address] = self.inputs.pop(0)
                 self.cursor += 2
+            else:
+                self.waiting = True
 
         elif opcode == 4: #Output
             d1 = get_value(m1, 1)
@@ -104,11 +108,12 @@ class Intcode:
             raise Exception(f'Opcode error: {opcode}')
 
     def run(self):
-        while not self.output and self.active:
+        while not self.waiting and self.active:
             self.step()
         if not self.active:
             return False
-        out = self.output.pop(0)
+        out = list(self.output)
+        self.output = []
         return out
 
     def input(self, x):
