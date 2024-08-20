@@ -102,12 +102,14 @@ class Intcode:
 
         elif opcode == 99:
             print(self.output)
+            print("No longer active")
             self.active = False
 
         else:
             raise Exception(f'Opcode error: {opcode}')
 
     def run(self):
+        self.waiting = False
         while not self.waiting and self.active:
             self.step()
         if not self.active:
