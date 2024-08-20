@@ -101,8 +101,8 @@ class Intcode:
             self.cursor += 2
 
         elif opcode == 99:
-            print(self.output)
-            print("No longer active")
+            # print(self.output)
+            print(f"Bot {self.idnum} no longer active")
             self.active = False
 
         else:
