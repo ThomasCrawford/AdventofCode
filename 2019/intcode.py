@@ -14,6 +14,7 @@ class Intcode:
     def step(self):
         code = self.data[self.cursor]
         opcode = code%100
+        print(opcode, self.cursor)
 
         m1 = (code%1000)//100
         m2 = (code%10000)//1000
@@ -58,7 +59,7 @@ class Intcode:
 
         elif opcode == 4: #Output
             d1 = get_value(m1, 1)
-            # print(f'OUTPUT: {d1}')
+            print(f'OUTPUT: {d1}')
             self.output.append(d1)
             self.cursor += 2
 

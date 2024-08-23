@@ -102,7 +102,7 @@ class Intcode:
 
         elif opcode == 99:
             # print(self.output)
-            print(f"Bot {self.idnum} no longer active")
+            # print(f"Bot {self.idnum} no longer active")
             self.active = False
 
         else:
