@@ -11,6 +11,7 @@ class Intcode:
         self.offset = 0
         self.output = []
         self.waiting = False
+        self.last_in = False
 
     def step(self):
         code = self.data[self.cursor]
@@ -53,11 +54,18 @@ class Intcode:
 
         elif opcode == 3: # Input
             if self.inputs:
-                address = get_address(m1, 1)
-                self.data[address] = self.inputs.pop(0)
-                self.cursor += 2
+                v = self.inputs.pop(0)
+                self.waiting = False
             else:
-                self.waiting = True
+                v = -1
+                if self.last_in == v:
+                    self.waiting = True
+            address = get_address(m1, 1)
+            self.last_in = v
+            self.data[address] = v
+            self.cursor += 2
+            # else:
+            #     self.waiting = True
 
         elif opcode == 4: #Output
             d1 = get_value(m1, 1)
@@ -134,5 +142,3 @@ class Intcode:
     def display_output(self):
         out = list(self.output)
         print("".join(chr(n) if n <300 else str(n) for n in out))
-
-
