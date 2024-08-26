@@ -120,8 +120,8 @@ class Intcode:
         self.waiting = False
         while not self.waiting and self.active:
             self.step()
-        if not self.active:
-            return False
+        # if not self.active:
+        #     return False
         out = list(self.output)
         self.output = []
         return out
