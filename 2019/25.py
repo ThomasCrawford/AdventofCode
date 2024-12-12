@@ -1,5 +1,4 @@
 from intcode23 import Intcode
-import re
 from itertools import combinations
 
 def disp(li):
@@ -17,14 +16,12 @@ def drop(bot, list_of_items):
         cmd = "drop " + item + "\n"
         bot.inputs += [ord(x) for x in cmd]
         bot.run()
-    # return bot
 
 def take(bot, list_of_items):
     for item in drop_list:
         cmd = "take " + item + "\n"
         bot.inputs += [ord(x) for x in cmd]
         bot.run()
-    # return bot
 
 def cmd(bot, string):
     bot.inputs += [ord(x) for x in string + "\n"]
@@ -68,21 +65,17 @@ take mug\n\
 west\n\
 "
 
-
 cmd(bot,route)
 
-
-# bot.run()
+#Generate list of items
 bot.inputs += [ord(x) for x in "inv\n"]
 item_string = "".join([chr(x) for x in bot.run()])
 items = [x[2:] for x in item_string.split("\n")[2:-3]]
 
-
+# Brute force the combination of items
 for drop_list in all_combinations(items):
     drop(bot,drop_list)
-    # print(cmd(bot, "inv"))
     result = cmd(bot,"north")
-    # print(drop_list)
     if "Alert!" not in result:
         print(result)
         quit()
@@ -96,5 +89,4 @@ for drop_list in all_combinations(items):
 #     inp = input()
 #     bot.inputs += [ord(x) for x in inp]
 #     bot.inputs += [ord("\n")]
-
 
