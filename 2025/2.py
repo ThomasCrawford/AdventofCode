@@ -1,5 +1,3 @@
-import regex
-
 def get_factors(num):
     return [factor for factor in range(1,num) if num%factor==0]
 
@@ -41,6 +39,3 @@ for r in data:
 
 print(count)
 print(count2)
-
-
-#109019664690182 too high

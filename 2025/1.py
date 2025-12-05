@@ -1,6 +1,3 @@
-#6513 too high
-#6496
-
 def step(current, line):
     if line[0]=="R":
         return (current + int(line[1:]) ) % 100
@@ -50,6 +47,5 @@ for line in data:
     elif new >0:
         count2 += (new)//100
     dial = new %100
-
 
 print(count2)
