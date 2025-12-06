@@ -12,9 +12,7 @@ with open("6.txt") as file:
     for line in file:
         data.append(line.strip().split())
 
-transposed = [[row[i] for row in data] for i in range(len(data[0]))]
-
-ans1 = sum([calc(line) for line in transposed])
+ans1 = sum([calc(line) for line in zip(*data)])
 print(ans1)
 
 
@@ -36,7 +34,8 @@ with open("6.txt") as file:
 data[-1].append(" ")
 
 
-transposed = [reformat([row[i] for row in data]) for i in range(len(data[0]))]
+transposed = [reformat(x) for x in zip(*data)]
+
 
 ans2 = 0
 running = 0
