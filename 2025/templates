@@ -1,0 +1,35 @@
+import re, hashlib, collections, copy, itertools
+
+regex = r'(\w+) can fly (\d+) km/s for (\d+) seconds, but then must rest for (\d+) seconds.'
+
+data = []
+with open("00.txt") as file:
+    for line in file:
+        name, speed, duration, rest = re.match(regex, line.strip()).groups()
+
+
+import time
+start_time = time.time()
+main()
+print("--- %s seconds ---" % (time.time() - start_time))
+
+
+
+import logging
+
+logging.basicConfig(level=logging.DEBUG, format='%(message)s')
+logging.debug(f"Generator {self.id} executing")
+
+
+
+from collections import defaultdict
+...
+data = defaultdict(list)
+
+
+neighbors = [1,1j,-1,-1j]
+neighbors = [1,1j,-1,-1j, 1+1j, 1-1j, -1+1j, -1-1j]
+
+import fuctools
+@functools.lru_cache(maxsize=None)
+
